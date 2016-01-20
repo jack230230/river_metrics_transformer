@@ -16,4 +16,4 @@ ENTRYPOINT ["/docker-entrypoint.sh"]
 
 EXPOSE 12801
 
-CMD ["-host 0.0.0.0"]
+CMD ["-host", "0.0.0.0"]
