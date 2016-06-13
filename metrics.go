@@ -80,15 +80,20 @@ func readCounts(riverAddr string) {
 	// parse master bin
 	re := regexp.MustCompile(`server.+\(.+\.(\d+)[^\d]+(\d+)\)`)
 	strs := re.FindStringSubmatch(status[0])
-	f, _ := strconv.ParseFloat(strs[1], 64)
-	masterBin.Set(f)
-	f, _ = strconv.ParseFloat(strs[2], 64)
-	masterPos.Set(f)
+	if len(strs) < 3 {
+		masterBin.Set(0)
+		masterPos.Set(0)
+	}else {
+		f, _ := strconv.ParseFloat(strs[1], 64)
+		masterBin.Set(f)
+		f, _ = strconv.ParseFloat(strs[2], 64)
+		masterPos.Set(f)
+	}
 
 	// parse river bin
 	re = regexp.MustCompile(`read.+\(.+\.(\d+)[^\d]+(\d+)\)`)
 	strs = re.FindStringSubmatch(status[1])
-	f, _ = strconv.ParseFloat(strs[1], 64)
+	f, _ := strconv.ParseFloat(strs[1], 64)
 	riverBin.Set(f)
 	f, _ = strconv.ParseFloat(strs[2], 64)
 	riverPos.Set(f)
